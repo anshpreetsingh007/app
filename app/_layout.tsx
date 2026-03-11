@@ -1,9 +1,9 @@
 import { Stack } from "expo-router";
 
-export default function Layout() {
+export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ title: "Home" }} />
+    <Stack screenOptions={{ headerTitleAlign: "center" }}>
+      <Stack.Screen name="index" options={{ title: "Form App" }} />
       <Stack.Screen name="employee-form" options={{ title: "Employee Form" }} />
       <Stack.Screen name="sign-in" options={{ title: "Sign In" }} />
       <Stack.Screen name="sign-up" options={{ title: "Sign Up" }} />

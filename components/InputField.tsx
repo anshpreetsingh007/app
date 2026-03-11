@@ -1,75 +1,58 @@
-import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import React from "react";
+import { StyleSheet, Text, TextInput, View, TextInputProps } from "react-native";
+
+type InputFieldProps = TextInputProps & {
+  label: string;
+  error?: string;
+};
 
 export default function InputField({
   label,
   error,
-  secureTextEntry,
   ...props
-}: any) {
-  const [showPassword, setShowPassword] = useState(false);
-
+}: InputFieldProps) {
   return (
-    <View style={styles.container}>
-      <Text>{label}</Text>
+    <View style={styles.fieldContainer}>
+      <Text style={styles.label}>{label}</Text>
 
-      <View style={{ position: "relative" }}>
-        <TextInput
-          style={[
-            styles.input,
-            secureTextEntry && styles.inputWithEye,
-            error && styles.errorInput,
-          ]}
-          secureTextEntry={secureTextEntry && !showPassword}
-          {...props}
-        />
+      <TextInput
+        style={[styles.input, error ? styles.inputError : null]}
+        placeholderTextColor="#94a3b8"
+        {...props}
+      />
 
-        {secureTextEntry && (
-          <Pressable
-            onPress={() => setShowPassword(!showPassword)}
-            style={styles.eye}
-          >
-            <Ionicons
-              name={showPassword ? "eye-off" : "eye"}
-              size={20}
-              color="gray"
-            />
-          </Pressable>
-        )}
-      </View>
-
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {error ? <Text style={styles.errorText}>{error}</Text> : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { marginBottom: 15 },
-
+  fieldContainer: {
+    marginBottom: 18,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#1e293b",
+    marginBottom: 8,
+  },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    borderRadius: 6,
+    borderColor: "#cbd5e1",
+    borderRadius: 12,
+    backgroundColor: "#fff",
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    fontSize: 15,
+    color: "#0f172a",
   },
-
-  inputWithEye: {
-    paddingRight: 40,
+  inputError: {
+    borderColor: "#ef4444",
+    backgroundColor: "#fef2f2",
   },
-
-  errorInput: {
-    borderColor: "red",
-  },
-
   errorText: {
-    color: "red",
-    marginTop: 5,
-  },
-
-  eye: {
-    position: "absolute",
-    right: 10,
-    top: 12,
+    color: "#dc2626",
+    fontSize: 13,
+    marginTop: 6,
   },
 });

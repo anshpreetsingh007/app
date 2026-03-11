@@ -48,6 +48,8 @@ export default function SignInScreen() {
         render={({ field: { onChange, value } }) => (
           <InputField
             label="Email"
+            placeholder="Enter your email"
+            placeholderTextColor="gray"
             value={value}
             onChangeText={onChange}
             error={errors.email?.message}
@@ -71,6 +73,8 @@ export default function SignInScreen() {
         render={({ field: { onChange, value } }) => (
           <InputField
             label="Password"
+            placeholder="Enter your password"
+            placeholderTextColor="gray"
             value={value}
             onChangeText={onChange}
             error={errors.password?.message}

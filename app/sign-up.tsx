@@ -47,6 +47,8 @@ export default function SignUpScreen() {
         render={({ field: { onChange, value } }) => (
           <InputField
             label="Full Name"
+            placeholder="Enter your full name"
+            placeholderTextColor="gray"
             value={value}
             onChangeText={onChange}
             error={errors.fullName?.message}
@@ -67,6 +69,8 @@ export default function SignUpScreen() {
         render={({ field: { onChange, value } }) => (
           <InputField
             label="Email"
+            placeholder="Enter your email"
+            placeholderTextColor="gray"
             value={value}
             onChangeText={onChange}
             error={errors.email?.message}
@@ -90,6 +94,8 @@ export default function SignUpScreen() {
         render={({ field: { onChange, value } }) => (
           <InputField
             label="Password"
+            placeholder="Create a password"
+            placeholderTextColor="gray"
             value={value}
             onChangeText={onChange}
             error={errors.password?.message}
@@ -110,6 +116,8 @@ export default function SignUpScreen() {
         render={({ field: { onChange, value } }) => (
           <InputField
             label="Confirm Password"
+            placeholder="Confirm your password"
+            placeholderTextColor="gray"
             value={value}
             onChangeText={onChange}
             error={errors.confirmPassword?.message}

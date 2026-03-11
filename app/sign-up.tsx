@@ -1,5 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
-import { Button, Text, View } from "react-native";
+import { Alert, Button, Platform, Text, View } from "react-native";
 
 import InputField from "../components/InputField";
 
@@ -23,6 +23,15 @@ export default function SignUpScreen() {
 
   const onSubmit = (data: any) => {
     console.log("Sign Up Data:", data);
+
+    if (Platform.OS === "web") {
+      window.alert("Your account has been created successfully.");
+    } else {
+      Alert.alert(
+        "Account Created",
+        "Your account has been created successfully."
+      );
+    }
   };
 
   return (
@@ -61,6 +70,9 @@ export default function SignUpScreen() {
             value={value}
             onChangeText={onChange}
             error={errors.email?.message}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
           />
         )}
       />
@@ -68,13 +80,21 @@ export default function SignUpScreen() {
       <Controller
         control={control}
         name="password"
-        rules={{ required: "Password is required" }}
+        rules={{
+          required: "Password is required",
+          minLength: {
+            value: 6,
+            message: "Password must be at least 6 characters",
+          },
+        }}
         render={({ field: { onChange, value } }) => (
           <InputField
             label="Password"
             value={value}
             onChangeText={onChange}
             error={errors.password?.message}
+            secureTextEntry
+            autoCapitalize="none"
           />
         )}
       />
@@ -83,7 +103,9 @@ export default function SignUpScreen() {
         control={control}
         name="confirmPassword"
         rules={{
-          validate: (value) => value === password || "Passwords do not match",
+          required: "Confirm password is required",
+          validate: (value) =>
+            value === password || "Passwords do not match",
         }}
         render={({ field: { onChange, value } }) => (
           <InputField
@@ -91,6 +113,8 @@ export default function SignUpScreen() {
             value={value}
             onChangeText={onChange}
             error={errors.confirmPassword?.message}
+            secureTextEntry
+            autoCapitalize="none"
           />
         )}
       />

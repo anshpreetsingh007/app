@@ -1,5 +1,5 @@
 import { Controller, useForm } from "react-hook-form";
-import { Button, Text, View } from "react-native";
+import { Alert, Button, Platform, Text, View } from "react-native";
 
 import InputField from "../components/InputField";
 
@@ -18,6 +18,15 @@ export default function SignInScreen() {
 
   const onSubmit = (data: any) => {
     console.log("Sign In Data:", data);
+
+    if (Platform.OS === "web") {
+      window.alert("You have signed in successfully.");
+    } else {
+      Alert.alert(
+        "Sign In Successful",
+        "You have signed in successfully."
+      );
+    }
   };
 
   return (
@@ -42,6 +51,9 @@ export default function SignInScreen() {
             value={value}
             onChangeText={onChange}
             error={errors.email?.message}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
           />
         )}
       />
@@ -51,6 +63,10 @@ export default function SignInScreen() {
         name="password"
         rules={{
           required: "Password is required",
+          minLength: {
+            value: 6,
+            message: "Password must be at least 6 characters",
+          },
         }}
         render={({ field: { onChange, value } }) => (
           <InputField
@@ -58,6 +74,8 @@ export default function SignInScreen() {
             value={value}
             onChangeText={onChange}
             error={errors.password?.message}
+            secureTextEntry
+            autoCapitalize="none"
           />
         )}
       />
